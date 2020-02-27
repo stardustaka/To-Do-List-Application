@@ -51,16 +51,15 @@ namespace To_Do_List
             int index = itemsList.IndexOf(item) + 1;
             for (int i = index; i < itemsDic.Count; i++)
             {
-                itemsDic[i] = itemsDic[i++];
+                itemsDic[i] = itemsDic[i + 1];
             }
             itemsList.RemoveAt(index - 1);
+            itemsDic.Remove(itemsDic.Count);
             for (int i = index; i <= itemsList.Count; i++)
             {
                 var item_ = itemsList[i - 1];
-                if (i == 1) item_.Top = 10;
-                else item_.Top = itemsList[i - 2].Bottom + 10;
+                item_.Top = (i == 1) ? 10 : itemsList[i - 2].Bottom + 10;
             }
-            itemsDic.Remove(itemsDic.Count);
             itemsIndex--;
             SavingSystem.Save(this.Name, itemsDic);
         }
